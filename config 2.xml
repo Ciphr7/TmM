@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.promilesonline/mobile"
+    versionCode = "10.1"
+    version     = "1.0.48" >
+
+  <access origin="https://*.typicode.com" />
+  <access origin="http://*.promiles.com" />
+<feature name="Geolocation">
+<param name="android-package" value="org.apache.cordova.GeoBroker" />
+</feature>
+<icon src="res/icon.png" />
+ <splash src="res/splash.png" />
+<!-- versionCode is optionaal annd Android only -->
+
+  <name>TruckMiles Mobile</name>
+
+  <description>
+      TruckMiles Routing Mobile App
+  </description>
+
+  <author href="https://build.phonegap.com" email="gilgarcia35@gmail.com">
+      Gil Garcia
+  </author>
+<preference name="phonegap-version" value="cli-7.1.0" />
+<preference name='pgb-builder-version' value='1' />
+
+<!-- <plugin name="cordova-plugin-geolocation" and stuff spec="4.0.1" /> -->
+<plugin name="cordova-plugin-geolocation" version="2.1.0" />
+
+<!-- <plugin name="cordova-plugin-whitelist" spec="1.3.3" /> -->
+<plugin name="cordova-plugin-whitelist" />
+<blugin name="cordova-plugin-splashscreen" />
+
+<!-- iPad -->
+<icon src="res/icon/ios/icon.png" width="1024" height="1024" />
+<icon src="res/icon/ios/icon-40.png" platform="ios" width="40" height="40" />
+<icon src="res/icon/ios/icon-76.png" platform="ios" width="76" height="76" />
+<icon src="res/icon/ios/icon-60@2x.png" platform="ios" width="120" height="120" />
+<icon src="res/icon/ios/icon-76@2x.png" platform="ios" width="152" height="152" />
+
+
+
+
+
+</widget>
