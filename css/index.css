@@ -1,0 +1,14 @@
+
+.active {
+    background-color:rgba(61, 157, 202, 0.76);
+}
+
+li {
+    font-size:40px;
+}
+
+#map{height: 400px;width: 100%;}
+
+div #terms{
+    padding: 5px;
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="themes/truckmiles.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+</head>
+
+<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HOMEPAGE>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+<body>
+
+
+    <div data-role="page" id="firstPage" data-theme="c">
+        <div data-role="header">
+            <h1>TruckMiles</h1>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <p align="center" id="welcome">Powered by ProMiles</p>
+
+            <div align="center">
+                <a href="#thirdPage" data-transition="flip">
+                    <img src="icon.png">
+                </a>
+            </div>
+            <a href="#mapPage" class="ui-btn ui-icon-info ui-btn-icon-right">Map</a>
+            <a href="#thirdPage" data-transition="flip" class="ui-btn ui-icon-lock ui-btn-icon-right" id="login">Start Trip</a>
+            <a href="#disclaimerPage" class="ui-btn ui-icon-info ui-btn-icon-right">Terms of use.</a>
+        </div>
+        <div data-role="footer">
+            <h5> &copy; ProMiles Software Development Corporation</h5>
+        </div>
+    </div>
+
+    <div data-role="page" id="mapPage" data-theme="c">
+        <div data-role="header">
+            <h1>TruckMiles</h1>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <div id='map' style='width: 385px; height: 300px;'></div>
+
+        </div>
+        <a href="#thirdPage" data-transition="flip" class="ui-btn ui-icon-lock ui-btn-icon-right" id="login">Start Trip</a>
+        <a href="#firstPage" class="ui-btn">Logout</a>
+        <a href="#disclaimerPage" class="ui-btn ui-icon-info ui-btn-icon-right">Terms of use.</a>
+    </div>
+    <div data-role="footer">
+        <h5> &copy; ProMiles Software Development Corporation</h5>
+    </div>
+    </div>
+
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>WELCOME TO PROMILES SELECT AN OPTION>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <!-- <div data-role="page" id="secondPage" data-theme="c">
+        <div data-role="header" data-position="fixed">
+            <h1>TruckMiles M</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+
+            <a href="#thirdPage" data-transition="flip" data-role="button" data-theme="c">New Trip
+                <h6>Get a truck route</h6>
+            </a>
+            <a href="#mapPage" data-transition="flip" data-role="button" data-theme="c">Map
+                <h6>See a map</h6>
+            </a>
+            <a href="#thirdPage" data-transition="flip" data-role="button" data-theme="c">Run Saved Trip
+                <h6>run a previously saved trip</h6>
+            </a>
+            <a href="#thirdPage" data-transition="flip" data-role="button" data-theme="c">Truck Stops Near Me
+                <h6>Get my location and find truckstops nearby</h6>
+            </a>
+            <a href="#thirdPage" data-transition="flip" data-role="button" data-theme="c">Truckstops, Weigh Scales, Rest Areas
+                <h6>Directory of truckstop, weigh scales, and rest areas</h6>
+            </a>
+            <a href="#thirdPage" data-transition="flip" data-role="button" data-theme="c">Truckstops, Weigh Scales, Rest Areas
+                <h6>Directory of truckstop, weigh scales, and rest areas</h6>
+            </a>
+            <a href="#thirdPage" data-transition="flip" data-role="button" data-theme="c">Network Stops
+                <h6>See price data on your network stops</h6>
+            </a>
+            <a href="#firstPage" data-transition="none" class="ui-btn ui-btn-shadow">Logout</a>
+            <a href="#disclaimerPage" data-transition="pop" class="ui-btn">Terms of use</a>
+            <a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-btn-icon-center" data-rel="back"> back </a>
+            <a href="#thirdPage" class=" ui-btn ui-btn-inline ui-icon-back ui-btn-icon-right ui-corner-all ui-shadow">Default</a>
+            <a href="#" class=" ui-btn ui-btn-inline ui-icon-back ui-btn-icon-notext ui-corner-all ui-shadow">Default</a>
+            
+            <p>removing grey circle</p>
+            <a href="#" class=" ui-btn ui-btn-inline ui-icon-back ui-btn-icon-right ui-nodisc-icon ui-corner-all ui-shadow ui-alt-icon">Default</a>
+            
+            <a href="#" class=" ui-btn ui-btn-inline ui-icon-back ui-btn-icon-notext ui-nodisc-icon ui-corner-all ui-shadow ui-alt-icon">Default</a> -->
+    <!-- </div>
+        <div data-role="footer" data-position="fixed">
+            <h5> &copy; PSDC</h5>
+        </div>
+    </div> -->
+
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ENTER TRIP OPTIONS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+    <div data-role="page" id="thirdPage" data-theme="c">
+        <div data-role="header" data-position="fixed">
+            <h1>Trip Planing</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <input type="checkbox" name="checkbox-0" id="SetToCurrentLocation" onclick="setOriginToCurrentLocation()">
+            <label for="SetToCurrentLocation">Set Origin to my GPS location</label>
+            <!-- <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
+            <label for="checkbox-1">Address to Address routing</label> -->
+            <div id="LatLon" align ="center">
+            </div>
+
+            <form>
+                <!-- Origin Lat: <input type="text" id="OLat" value="35.400478" style="width:100px"/> Origin Lon:<input type="text" id="OLon" value="-97.282707"
+                    style="width:100px"/> -->
+                <label for="text-1">Origin:</label>
+                <input type="text" placeholder="example zip: 19145" data-clear-btn="true" name="text-1" id="origin" value="">
+                <label for="text-2">Destination</label>
+                <input type="text" placeholder="example location: houston tx" data-clear-btn="true" name="text-2" id="stop1" value="">
+
+                <a href="#run-tripPage" data-transition="flip" class="ui-btn" id="run-trip">Run Trip</a>
+                <a href="#tripOptions" class="ui-btn ui-btn-inline ui-icon-gear ui-btn-icon-right">Routing Option</a>
+            </form>
+            <!-- <div>
+                Location Text:
+                <input type="text" value="Santa Fe NM" id="LocationText" />
+                <input type="button" value="Validate" onclick="validateLocation()" />
+                <br />
+                <div id="ValidateResults" style="height: 125px; overflow: scroll;"></div>
+            </div> -->
+
+
+            <a href="#firstPage" data-transition="flip" class="ui-btn">Logout</a>
+            <!-- <a href="#firstPage" class="ui-btn">Logout</a> -->
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h5> &copy; ProMiles Software Development Corporation</h5>
+        </div>
+    </div>
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>DIALOG BOX TO SET TRIP OPTIONS>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+    <div data-role="page" data-dialog="true" id="tripOptions" data-theme="c">
+        <div data-role="header" data-theme="c" data-add-back-btn="true" data-position="fixed">
+            <h1>Set Trip Options</h1>
+        </div>
+
+        <div role="main" class="ui-content" id="map-canvas">
+
+            <!-- <div align="center">
+                        <h1 id="our-headline"> Click the list item</h1>
+                    </div> -->
+            <form>
+                <div class="ui-field-contain">
+                    <label for="rtMethod">Routing Method:</label>
+                    <select name="rtMethod" id="rtMethod">
+
+                        <option value="PRACTICAL" selected="selected">Practical</option>
+                        <option value="SHORTEST">Shortest</option>
+                        <option value="INTERSTATE">Interstate</option>
+
+                    </select>
+                </div>
+            </form>
+
+            <label>
+                <input type="checkbox" id="CloseBorder">Close Border
+            </label>
+
+            <!-- <label>
+                <input type="checkbox" id="IsHazmat" />Is Hazmat
+            </label> -->
+
+            <label>
+                <input type="checkbox" id="AvoidToll" />Avoid Toll
+                <br />
+            </label>
+
+            <!-- <div data-role="collapsible">
+                <h4>Fuel Opt Settings</h4>
+                <label for="text-1">set MPG:</label>
+                <input type="text" data-clear-btn="true" name="setMPG" id="setMPG" value="5">
+                <label for="text-1">My tank capacity:</label>
+                <input type="text" data-clear-btn="true" name="setTankCapacity" id="setTankCapacity" value="180">
+                <label for="text-1">Set start Gallon:</label>
+                <input type="text" data-clear-btn="true" name="setStartGallon" id="setStartGallon" value="150">
+                <label for="text-1">set desired end gallons:</label>
+                <input type="text" data-clear-btn="true" name="setDesiredEndGallon" id="setDesiredEndGallon" value="25">
+                <label for="text-1">Distance Out of Route:</label>
+                <input type="text" data-clear-btn="true" name="setDistanceOOR" id="setDistanceOOR" value="4">
+                <label for="text-1">set Minimum Gallons to purchase at stop:</label>
+                <input type="text" data-clear-btn="true" name="setMinGallons" id="setMinGallons" value="50">
+                <label for="text-1">set Minimun Gallons at end of trip:</label>
+                <input type="text" data-clear-btn="true" name="setMinTankGallons" id="setMinTankGallons" value="20">
+            </div> -->
+
+            <a href="#thirdPage" class="ui-btn ui-icon-gear ui-btn-icon-right" id="tripOptionButton">ok</a>
+
+        </div>
+        <div data-role="footer" data-theme="c" data-position="fixed">
+            <h5> &copy; ProMiles Software Development Corporation</h5>
+        </div>
+    </div>
+    <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>DISPLAY TRIP RESULTS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+    <div data-role="page" data-url="run-tripPage" data-theme="c">
+        <div data-role="header" data-theme="c" data-add-back-btn="true" data-position="fixed">
+            <h1>Trip Results</h1>
+        </div>
+        <div>
+            <h2>Run Full Trip</h2>
+        </div>
+        <!-- <input type="checkbox" id="CloseBorder" />Close the Border<br />
+            <input type="checkbox" id="IsHazmat" />Is Hazmat
+            <input type="checkbox" id="AvoidToll" />Avoid Toll
+            <div>
+                Origin:
+                <input type="text" id="FOrigin" value="Boise ID" />
+                &nbsp;&nbsp;&nbsp;Destination:
+                <input type="text" id="FDestination" value="19145" /><input type="button" value="Run Trip" id="run-trip" />
+                <br />
+                Origin Lat: <input type="text" id="OLat" value="35.400478" style="width:100px"/> Origin Lon:<input type="text" id="OLon" value="-97.282707"
+                 style="width:100px"/> Dest. Lat:<input type="text" id="DLat" value="31.505865" style="width:100px"/> Dest. Lon:<input type="text"
+                  id="DLon" value="-86.923483" style="width:100px"/><input type="button" value="Run Trip GPS" id="runFullTripGPS" />
+                <div style="margin-top:8px">
+                    <input type="checkbox" id="UseHeading" />Use Heading&nbsp;&nbsp;&nbsp;Heading:<input type="number" id="Heading" value="180" />
+                </div>
+            </div> -->
+
+        <div id="myRtMethod" align="center">
+
+        </div>
+        <div id="FullTripResults" align="center" padding="0 5 0 5">
+
+        </div>
+
+        <!-- <div id="runFullTripGPSresults">
+            </div> -->
+
+        <div role="main" class="ui-content" id="trip">
+            <!-- map loads here... -->
+            <div class=Mileages>
+
+            </div>
+            <a href="#thirdPage" data-transition="flip" class="ui-btn" id="newTrip">New / Update Trip</a>
+
+        </div>
+        <div data-role="footer" data-theme="c">
+            <h5> &copy; ProMiles Softward Development Corporation</h5>
+        </div>
+    </div>
+
+    <!-- Map Page -->
+
+    <!-- <div data-role="page" id="mapPage" data-theme="c">
+        <div data-role="header">
+            <h1>TruckMiles</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h1>Google Map Test</h1>
+            <div id="map">Loading Map....</div>
+
+            <a href="#secondPage" data-transition="slidedown" class="ui-btn">Main</a>
+            <a href="#firstPage" class="ui-btn">Logout</a>
+
+        </div>
+    </div> -->
+
+    <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<disclaimer>>>>>>>>>>>>>>>>>>>>>> -->
+
+    <div data-role="page" data-dialog="true" id="disclaimerPage" data-theme="c">
+        <div data-role="header" data-theme="c" data-add-back-btn="true" data-position="fixed">
+            <h1>Terms of use</h1>
+        </div>
+        <div id="terms">
+            <p>Terms of Use TERMS AND CONDITIONS FOR USE OF TRUCKMILES&reg; SERVICES THIS AGREEMENT ("AGREEMENT") GOVERNS
+                THE USE OF THE TRUCKMILES ONLINE WEBSITE (THE "WEBSITE") AND ALL SERVICES AVAILABLE AT OR THROUGH THE WEBSITE
+                (THE "SERVICES") INCLUDING ANY MOBILE APPLICATIONS. BY USING THE SERVICES, YOU AGREE TO THE TERMS OF THIS
+                AGREEMENT. IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, YOU MUST NOT ACCEPT THIS AGREEMENT AND MAY
+                NOT USE THE SERVICES. TRUCKMILES IS A PRODUCT OF PROMILES&reg; SOFTWARE DEVELOPMENT CORPORATION. This is
+                a summary version of the AGREEMENT. You can review the most current version of the COMPLETE Agreement at
+                any time by visiting ProMiles.com/TruckMilesTerms.asp This summary on no way limits the complete AGREEMENT.
+                PSDC SOFTWARE For purposes of this agreement, SOFTWARE is defined as any product or data made available to
+                YOU by ProMiles Software Development Corporation in connection with the SERVICES. Usage of SOFTWARE without
+                accepting this agreement is strictly prohibited. USE OF ONLINE SERVICES YOU acknowledge and agree that: YOU
+                will not use the SERVICES in any manner or for any purpose that is prohibited by the terms and conditions;
+                . YOU will not use the SERVICES for any illegal or unauthorized purpose and that YOU will not, in the use
+                of the SERVICES, violate any laws in YOUR jurisdiction; . YOU will not take or attempt any action that, in
+                the sole discretion of PSDC, imposes or may impose an unreasonable or disproportionately large load or burden
+                on the Website or such operation's infrastructure; . YOU have not falsely identified yourself, nor provided
+                any false information, to gain access to the SERVICES; . USER RESPONSIBILITY: DRIVING DIRECTIONS PSDC strives
+                to collect and present the most accurate driving directions possible for its SOFTWARE. These directions are
+                not guaranteed to be accurate. YOU accept the responsibility for YOURSELF and for any others with whom you
+                share directions generated by the SOFTWARE to obey all posted traffic signs and to obey all national, state,
+                and local laws, rules, restrictions, regulations, and law enforcement personnel governing travel wherever
+                YOU or those with whom YOU share directions may drive. PSDC accepts no responsibility or liability for any
+                mishaps or damages, financial or otherwise, that result from using its driving directions, as outlined in
+                the INDEMNITY section below. USER RESPONSIBILITY: DISTRACTED DRIVING Review maps before departing. If YOU
+                need to refer to a map or driving directions, pull over to a safe location. Distracted driving could divert
+                a person's attention away from the primary task of driving. All distractions can endanger driver, passenger,
+                general motorist and bystander safety. PSDC accepts no responsibility or liability incurred by attempting
+                to use the SOFTWARE or any derivative thereof while driving. LIMITATION OF LIABILITY IF YOU ARE DISSATISFIED
+                WITH ANY PORTION OF THE SERVICES OR SOFTWARE, OR WITH ANY OF THESE TERMS AND CONDITIONS, YOUR SOLE AND EXCLUSIVE
+                REMEDY IS TO DISCONTINUE USING THE SERVICES AND SOFTWARE. INDEMNITY YOU understand that your use of PSDC
+                SOFTWARE is at your own risk. YOU agree to hold PSDC, its affiliates, resellers, partners, officers, agents,
+                and employees blameless for any set-back, damage, inconvenience, or other difficulty, financial or otherwise,
+                that may arise from the use of its SOFTWARE. TRADEMARKS The following trademarks are owned by PSDC: "ProMiles"
+                - is a registered trademark of ProMiles Software Development Corporation. "TruckMiles" - is a registered
+                trademark of ProMiles Software Development Corporation. This Agreement does not provide any license or rights
+                to YOU to use such trademarks. THIRD PARTY RIGHTS AND TRADEMARKS The SOFTWARE may include a portion, subset
+                or derivative compilations from third parties. By using the SERVICES and SOFTWARE, YOU agree to the Terms
+                and Conditions of these providers in their entirety. Third parties retain the right to modify their Terms
+                and Conditions independently of PSDC. Copyright &copy; 1994 - 2018 ProMiles Software Development Corporation.
+                Any rights not expressly granted herein are reserved. TruckMiles &trade; inquiries should be directed to
+                info@truckmiles.com, or sales@truckmiles.comas appropriate.
+
+            </p>
+            <a href="#" class="ui-btn ui-icon-back ui-btn-icon-notext ui-btn-icon-center" data-rel="back"> back </a>
+        </div>
+
+
+
+
+        <div data-role="footer" data-theme="c">
+            <h5> &copy; ProMiles Softward Development Corporation</h5>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="js/main.js"></script>
+
+    <script src="http://prime.promiles.com/WebAPI/Scripts/PRIME/PRIMEWebAPI.ashx?apikey=Nm1FY1FtQ2ZMeWoySU5oeElyMnY2Zz090">
+    </script>
+
+
+</body>
+
+</html>
