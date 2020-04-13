@@ -7,8 +7,8 @@
     version     = "1.0.51" >
 
   <access origin="https://*.typicode.com" />
-  <access origin="http://*.promiles.com" />
-  <access origin="https://*.mapbox.com" />
+  <access origin="http://*.truckmiles.com" />
+  <access origin="https://*.google.com" />
 <feature name="Geolocation">
 <param name="android-package" value="org.apache.cordova.GeoBroker" />
 </feature>
@@ -22,7 +22,7 @@
       TruckMiles Routing Mobile App
   </description>
 
-  <author href="https.promiles.com" email="gilgarcia35@gmail.com">
+  <author href="https.truckmiles.com" email="gilgarcia35@gmail.com">
       Gil Garcia
   </author>
 <preference name="phonegap-version" value="cli-7.1.0" />
