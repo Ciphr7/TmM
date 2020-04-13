@@ -2,7 +2,7 @@
 
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.promilesonline/mobile"
+    id          = "com.truckmiles.app"
     versionCode = "10.1"
     version     = "1.0.51" >
 
