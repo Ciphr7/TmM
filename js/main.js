@@ -1,20 +1,30 @@
 $(document).ready(function () {
-  
+    
 });
 
-   var map = mapboxgl.accessToken = 'pk.eyJ1IjoicHJvbWlsZXMiLCJhIjoiY2psZHYzeWxiMDFtcTNxc3o4cnZxa2JuOCJ9.IrZnTJWyWKt6x1CIzT0Ahw';
-   map = new mapboxgl.Map({
-   container: 'map',
-   style: 'mapbox://styles/mapbox/streets-v10'
-});
-
-
-//var runTripBtn = document.getElementById("run-trip");
 var runTripBtn = $("#run-trip");
 var newTrip = $("#newTrip");
 var geoBTN = $("#geoBTN");
 var points2 = '';
 var pointsArr = new Array();
+var setMapToOrg = $("#setMapToOrg")
+var setMapToDest = $("#setMapToDest")
+var frameTrip = $("#frameTrip")
+
+
+
+$("#run-trip").click(function (){
+    seemyLoading()
+    });
+
+function seemyLoading(){     
+       document.getElementById("spinner").style.visibility = "visible";
+    }
+
+function hideLoading(){     
+        document.getElementById("spinner").style.visibility = "hidden";
+     }
+
 
 function setOriginToCurrentLocation() {
    var b = $("#SetToCurrentLocation").is(":checked");
@@ -35,7 +45,7 @@ function setOriginToCurrentLocation() {
 }
 function error(err) {
    console.warn(`ERROR(${err.code}): ${err.message}`);
- }
+}
  function success(position) {
    var lat = position.coords.latitude;
    var lon = position.coords.longitude;
@@ -53,11 +63,26 @@ $("#SetToCurrentLocation").on("change", function () {
 
 
 $(runTripBtn).click(function () {
-   runFullTrip();
+   runFullTrip(); 
+});
+
+ 
+
+
+$(setMapToOrg).click(function(){
+    frameOrigin ();
+});
+
+$(setMapToDest).click(function(){
+    frameDestination();
+});
+
+$(frameTrip).click(function(){
+    frameTheTrip();
 });
 function runFullTrip() {
-   var origin = null;
-   var originText = $('#origin').val();
+    var origin = null;
+    var originText = $('#origin').val();
    if(originText.indexOf(':') > -1) {
        var arr = originText.split(':');
        var lat = Number(arr[0]);
@@ -77,9 +102,9 @@ function runFullTrip() {
    if ($('#origin').val() != '') {
        arr.push(stop1)
    }
-   if ($('#stop1').val() != '') {
-       arr.push(stop1)
-   }
+   //if ($('#stop1').val() != '') {
+   //    arr.push(stop1)
+  //}
    //if ($('#stop3').val() != '') {
      //  arr.push(stop3)
    //}
@@ -135,8 +160,69 @@ function runFullTrip() {
 
    PRIMEWebAPI.runTrip(trip, handleTrip);
 
+};
+
+function frameOrigin(){
+    if (map !== undefined) {
+        //bounds = new google.maps.LatLngBounds();
+        if(points !== undefined && points !== null){
+            if (points.length >= 1) {
+                
+                //map.fitBounds(bounds);
+                var origin = points[0];
+            map.setZoom(15);
+            map.panTo(origin);
+            } else {
+                //sbounds.extend(points[0].latLng);
+            }
+        } else { //no locations so center
+            
+        }  
+                  
+    }
+};
+
+function frameDestination(){
+    if (map !== undefined) {
+        //bounds = new google.maps.LatLngBounds();
+        if(points !== undefined && points !== null){
+            if (points.length >= 1) {
+                //map.fitBounds(bounds);
+                var destination = points[points.length - 1];
+            map.setZoom(10);
+            map.panTo(destination);
+            } else {
+                //sbounds.extend(points[0].latLng);
+            }
+        } else { //no locations so center
+            
+        }  
+                  
+    }
 }
 
+function frameTheTrip(){
+    if (map !== undefined) {
+        //bounds = new google.maps.LatLngBounds();
+        if(points !== undefined && points !== null){
+            if (points.length > 1) {
+                points.forEach(function (loc) {
+                    //var ll = new google.maps.LatLng(loc.lat(), loc.lng());
+                    bounds.extend(loc);
+                    //console.log('frameTrip: ' + loc.latitude() + ', ' + loc.longitude());
+                });
+                map.fitBounds(bounds);
+            } else {
+                bounds.extend(points[0].latLng);
+            }
+        } else { //no locations so center
+            var centerUS = new google.maps.LatLng(39.8282, -98.5795);
+            map.setZoom(4);
+            map.panTo(centerUS);
+        } 
+        
+    }  
+}
 //function runFullTripGPS()
 function runFullTripDetails() {
    var olat = Number($("#OLat").val());
@@ -173,21 +259,20 @@ function runFullTripDetails() {
                avoidTollRoads: avoidToll,
                vehicleType: PRIMEWebAPI.VehicleTypes.TRACTOR3AXLETRAILER2AXLE,
                getDrivingDirections: true,
-               getMapPoints: false,
+               getMapPoints: true,
                getStateMileage: false,
                getTripSummary: true,
                getFuelOptimization: false,
                getTruckStopsOnRoute: false,
                fuelOptimizationParameters: fo,
-               isHazmat: isHazmat,
                unitMPG: mpg
            });
           
            PRIMEWebAPI.runTrip(trip, handleTrip);
-       }
+}
       
        //trip time in hours and seconds
-       function getTimeString(n, isSeconds) {
+function getTimeString(n, isSeconds) {
       
            if (isSeconds) n = Math.ceil(n / 60); ;
       
@@ -206,10 +291,10 @@ function runFullTripDetails() {
        
       
            return hours + "h:" + minutes + "m";
-      
-       }
+           
+        }
 
-       function handleTrip(t) {
+ function handleTrip(t) {
            var times = getTimeString(t.TripMinutes)
            var html = [];
            html.push("<h2>Trip Summary</h2>");
@@ -222,7 +307,54 @@ function runFullTripDetails() {
           
            html.push("</tbody></table>");
 
+        var oLat  = t.MapPoints[0].Lat;
+        var oLon  = t.MapPoints[0].Lon;
+        var dLat  = t.MapPoints[t.MapPoints.length - 1].Lat;
+        var dLon  = t.MapPoints[t.MapPoints.length - 1].Lon;
+        if(markerOrg != null && markerOrg != undefined){
+            markerOrg.setMap(null);
+        }
+        if(markerDest != null && markerDest != undefined){
+            markerDest.setMap(null);
+        }
+           markerOrg = new google.maps.Marker({
+                position: new google.maps.LatLng(oLat, oLon),
+                title: t.OriginLabel,
+                map: map
+            });
+            bounds.extend(markerOrg.position);
 
+
+            markerDest = new google.maps.Marker({
+                position: new google.maps.LatLng(dLat, dLon),
+                title: t.DestinationLabel,
+                map: map
+            });
+
+
+            // var polyline = new google.maps.Polyline()
+            if (polyline !== undefined && polyline !== null  && map!== null && map !== undefined) {
+                polyline.setMap(null);
+            }                           
+            bounds = new google.maps.LatLngBounds();
+
+            points = new Array();
+            t.MapPoints.forEach(function (point, i) {
+                var pt = new google.maps.LatLng(point.Lat, point.Lon);
+                points.push(pt);
+                bounds.extend(pt);
+            });
+            polyline = new google.maps.Polyline({
+                path: points,
+                editable: false,
+                draggable: false,
+                strokeColor: '#ed1c24 ',
+                strokeWeight: 3,
+                map: map
+            });
+            map.fitBounds(bounds);
+            
+                
    //DRIVING DIRECTIONS
    html.push("<br/><br/><h2>Driving Directions</h2>");
    html.push("<table><thead><tr><th>State</th><th>Maneuver</th><th>Leg Miles</th><th>Total Miles</th></tr></thead><tbody>")
@@ -232,141 +364,15 @@ function runFullTripDetails() {
    }
    html.push("</tbody></table>");
 
+   $('#tMiles').html("Miles: " + "<span style=color:#ed1c24>" + t.TripDistance + "</span>" + "<br />" );
+   
+
    $('#FullTripResults').html(html.join(''));
   
-   pointsArr = new Array();
-   var points = new Array();
-   points2 = '';
-   t.MapPoints.forEach(function (p){
-       var pArr = new Array();
-       pArr.push(p.Lon);
-       pArr.push(p.Lat);
+   //t.MapPoints.array.forEach(element => {
+   //   
+   //});
 
-       pointsArr.push(pArr);
-   }); 
-
-   var newstartCirc = {
-       "type": "FeatureCollection",
-       "features": [{
-           "type": "Feature",
-           "geometry": {
-               "type": "Point",
-               "coordinates": pointsArr[0]
-            }
-        }]
-    };  
-    if (map.getLayer('start')){
-        map.getSource('start').setData(newstartCirc)
-    } else {
-        var newstartCoord = pointsArr[0]
-        map.addLayer({
-            "id": "start",
-            "type": "circle",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "FeatureCollection",
-                    "features":[{
-                        "type": "Features",
-                        "properites": {},
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": newstartCoord
-                        }
-                    }]
-                }
-            },
-            
-            "paint": {
-                "circle-radius": 5,
-                "circle-color": "#3887be"
-            }
-        });
-        
-    }
-    var newendCirc = {
-        "type": "FeatureCollection",
-        "features": [{
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": pointsArr[pointsArr.length - 1]
-            }
-        }]
-    }; 
-   
-    if (map.getLayer('end')) {
-        map.getSource('end').setData(newendCirc);
-    } else {
-        var newendCoord = pointsArr[pointsArr.length - 1]
-        map.addLayer({
-                "id": "end",
-                  "type": "circle",
-                  "source": {
-                    "type": "geojson",
-                    "data": {
-                      "type": "FeatureCollection",
-                      "features": [{
-                        "type": "Features",
-                        "properties": {},
-                        "geometry": {
-                          "type": "Point",
-                          "coordinates": newendCoord
-                        }
-                      }]
-
-                    }
-                  },
-            
-                  "paint": {
-                    "circle-radius": 5,
-                    "circle-color": "#f30"
-                  }          
-        });
-    }
-    // getRoute(pointsArr);
-
-    var geojson = {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-            "type": "LineString",
-            "coordinates": pointsArr
-        }
-    };
-    if (map.getSource("route")){       
-        
-        map.getSource("route").setData(geojson);
-        
-    } else { 
-        map.addLayer({
-            "id": "route",
-            "type": "line",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": pointsArr
-                    } 
-                }
-            },
-            paint: {
-                "line-color": "#888",
-                "line-width": 4
-            }    
-        });
-    } 
-    var bounds = pointsArr.reduce(function(bounds, coord) {
-        return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(pointsArr[0], pointsArr[0]));
-    
-    
-    map.fitBounds(bounds, {
-        padding: 30
-    });
     // function getRoute(end){
     //     var start = [-122.66232372860946,45.52375169876174];
     //     var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + ';' + end[0] + ',' + end[1] + 'geometries=geojson&access_token=' + map;
@@ -387,5 +393,7 @@ function runFullTripDetails() {
     //     }
     // }
     //function handletrip ends  
+    hideLoading();
 }
+
 

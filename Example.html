@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <style>
+
+        #wrapper {
+            width: 80%;
+            margin: 15px auto;
+            border: 1px solid black;
+            padding: 10px 5px;
+        }
+
+        #wrapper table {
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+    <div id="wrapper">
+                
+
+        <!-- Very simple layout sample -->
+
+        <table>
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Yesterdays Price</th>
+                    <th>Price</th>
+                    <th>RefundableIFTA</th>
+                </tr>
+            </thead>
+
+            <tbody id="result-target">
+
+            </tbody>        
+
+        </table>
+
+    </div>
+
+    <script type="text/javascript">
+
+        // Makes sure document is loaded
+        $(document).ready(function () {
+
+            // get the data from the API back end
+            $.get("api/averages", function (data) {
+
+
+                var html = ""
+                // generate HTML from data
+                for (var i = 0; i < data.length; i++) {
+                    html += `<tr><td>${data[i].state}</td><td>${data[i].yesterdayPrice}</td><td>${data[i].price}</td><td>${data[i].refundableIFTA}</td></tr>`;
+                }
+
+                // replace HTML in target element with data
+                $("#result-target").html(html);
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

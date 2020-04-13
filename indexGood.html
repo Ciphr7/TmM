@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html LANG="EN">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+            <link rel="stylesheet" type="text/css" href="css/addtohomescreen.css">
+            <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css"
+           
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-2096024-6"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-2096024-6');
+            </script>
+            <meta charset="utf-8"/>
+            <BASE HREF="">
+        <title>TruckMiles.com</title>
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+        <link rel="stylesheet" href="themes/truckmiles.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" /> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="wrapper" >
+            <div data-role="panel" data-theme="c" id="mypanel" data-display="overlay">
+                    <div data-role="main" class="ui-content" data-theme="c">
+                        <img id="logo" src="icon2.png" alt="TruckMiles Logo">
+                        <div data-role="header">
+                            
+                        </div>
+                        
+                        <label for="SetToCurrentLocation">Set Origin to my GPS location</label>
+                        <input type="checkbox" name="checkbox-0" id="SetToCurrentLocation" onclick="setOriginToCurrentLocation()">
+        
+                        <form>
+                            <!-- Origin Lat: <input type="text" id="OLat" value="35.400478" style="width:100px"/> Origin Lon:<input type="text" id="OLon" value="-97.282707"
+                                style="width:100px"/> -->
+
+                            <label for="text-1">Origin:</label>
+                            <input data-type = "search" placeholder="example location: 19145" onfocus="this.value=''" name="text-1" id="origin"
+                                value="">
+                                <!-- data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-input="#inset-autocomplete-input" -->
+                            
+                            <label for="text-2">Destination</label>
+                            <input data-type = "search" onfocus="this.value=''" placeholder="example location: houston tx"  name="text-2" id="stop1" value="">
+
+                                
+
+                            <a href="#" data-rel="close" class="ui-btn" type="button" id="run-trip" onclick="seemyLoading()" >Run Trip</a>
+                
+                            <label for="rtMethod">Trip Options:</label>
+                            <select name="rtMethod" id="rtMethod" data-iconpos="left">
+                                <option value="PRACTICAL" selected="selected" >Practical</option>
+                                <option value="SHORTEST">Shortest</option>
+                                <option value="INTERSTATE">Interstate</option>
+                            </select>
+                            <label>
+                                <input type="checkbox" id="CloseBorder">Close Border
+
+        
+                            <label>
+                                <input type="checkbox" id="AvoidToll" />Avoid Toll
+                                <br />
+                            </label>
+                      
+                        </form>
+
+                    </div>
+            </div><!-- /panel -->
+            <div data-role="panel" data-theme="c" id="mypanel2" data-position="right" data-display="overlay">
+                <div data-role="main" class="ui-content" data-position="fixed" data-theme="c">
+                    <div data-role="header">
+                        <h1>Trip Details</h1>
+                    </div>
+                    <div id="myRtMethod">
+                    </div>
+                    <div role="main" class="ui-content" id="trip">
+                        <div id="FullTripResults">
+
+                        </div>
+                        <div class=Mileages>
+                        </div>
+                        <a href="#" data-rel="close" class="ui-btn" id="newTrip">New / Update Trip</a>
+                    </div>
+
+                </div>
+
+                <!-- <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                    <h5> &copy; ProMiles Software Development Corporation</h5>
+                </div> -->
+            </div><!-- /panel -->
+            
+            <header class="header">TruckMiles.com</header>
+
+            <div id="main"> 
+                <img src="./css/images/ajax-loader.gif" alt="map did not load, please refresh browser" id="loaderimage" class="center" >  
+                <h5 style="color:aliceblue" class="center">The Map did not load, please refresh your browser</h5>    
+
+ 
+            </div>
+
+            <!-- This is for the daily prices table -->
+            <div data-role = "popup" id="wrapper">
+
+                <table class="fixed_header" >
+                    
+                    <tbody  id="result-target">
+                        <thead>
+                                
+                                <h3 id="today">       
+                                </h3>
+                                            
+                            <tr>
+                                <th>State</th>
+                                    <th>Today</th>
+                                    <th>Today Ex-Tax</th>
+                                <th >Yesterdays Price</th>                              
+                                <th>Refundable IFTA</th>
+                                <th>Difference</th>
+                            </tr>
+                        </thead>
+
+                    </tbody>        
+
+                </table>
+                <a href="#" data-rel="back" data-role="button" class="ui-btn ui-icon-back ui-btn-icon-notext ui-btn-icon-center">back </a>
+            </div>
+
+            <div data-role="popup" id="disclaimer" data-theme="c">
+                    <a href="#" data-rel="back" data-role="button" data-theme="c" data-icon="delete" data-iconpos="notext"
+                        class="ui-btn">Close</a>
+                    <h1>Terms of use</h1>
+
+                    <div id="terms">
+                        <p>Terms of Use TERMS AND CONDITIONS FOR USE OF TRUCKMILES&reg; SERVICES THIS AGREEMENT ("AGREEMENT")
+                            GOVERNS
+                            THE USE OF THE TRUCKMILES ONLINE WEBSITE (THE "WEBSITE") AND ALL SERVICES AVAILABLE AT OR THROUGH
+                            THE
+                            WEBSITE
+                            (THE "SERVICES") INCLUDING ANY MOBILE APPLICATIONS. BY USING THE SERVICES, YOU AGREE TO THE TERMS
+                            OF
+                            THIS
+                            AGREEMENT. IF YOU DO NOT AGREE WITH THESE TERMS AND CONDITIONS, YOU MUST NOT ACCEPT THIS AGREEMENT
+                            AND
+                            MAY
+                            NOT USE THE SERVICES. TRUCKMILES IS A PRODUCT OF PROMILES&reg; SOFTWARE DEVELOPMENT CORPORATION.
+                            This
+                            is
+                            a summary version of the AGREEMENT. You can review the most current version of the COMPLETE
+                            Agreement
+                            at
+                            any time by visiting ProMiles.com/TruckMilesTerms.asp This summary on no way limits the complete
+                            AGREEMENT.
+                            PSDC SOFTWARE For purposes of this agreement, SOFTWARE is defined as any product or data made
+                            available
+                            to
+                            YOU by ProMiles Software Development Corporation in connection with the SERVICES. Usage of SOFTWARE
+                            without
+                            accepting this agreement is strictly prohibited. USE OF ONLINE SERVICES YOU acknowledge and agree
+                            that:
+                            YOU
+                            will not use the SERVICES in any manner or for any purpose that is prohibited by the terms and
+                            conditions;
+                            . YOU will not use the SERVICES for any illegal or unauthorized purpose and that YOU will not, in
+                            the
+                            use
+                            of the SERVICES, violate any laws in YOUR jurisdiction; . YOU will not take or attempt any action
+                            that,
+                            in
+                            the sole discretion of PSDC, imposes or may impose an unreasonable or disproportionately large load
+                            or
+                            burden
+                            on the Website or such operation's infrastructure; . YOU have not falsely identified yourself, nor
+                            provided
+                            any false information, to gain access to the SERVICES; . USER RESPONSIBILITY: DRIVING DIRECTIONS
+                            PSDC
+                            strives
+                            to collect and present the most accurate driving directions possible for its SOFTWARE. These
+                            directions
+                            are
+                            not guaranteed to be accurate. YOU accept the responsibility for YOURSELF and for any others with
+                            whom
+                            you
+                            share directions generated by the SOFTWARE to obey all posted traffic signs and to obey all
+                            national,
+                            state,
+                            and local laws, rules, restrictions, regulations, and law enforcement personnel governing travel
+                            wherever
+                            YOU or those with whom YOU share directions may drive. PSDC accepts no responsibility or liability
+                            for
+                            any
+                            mishaps or damages, financial or otherwise, that result from using its driving directions, as
+                            outlined
+                            in
+                            the INDEMNITY section below. USER RESPONSIBILITY: DISTRACTED DRIVING Review maps before departing.
+                            If
+                            YOU
+                            need to refer to a map or driving directions, pull over to a safe location. Distracted driving
+                            could
+                            divert
+                            a person's attention away from the primary task of driving. All distractions can endanger driver,
+                            passenger,
+                            general motorist and bystander safety. PSDC accepts no responsibility or liability incurred by
+                            attempting
+                            to use the SOFTWARE or any derivative thereof while driving. LIMITATION OF LIABILITY IF YOU ARE
+                            DISSATISFIED
+                            WITH ANY PORTION OF THE SERVICES OR SOFTWARE, OR WITH ANY OF THESE TERMS AND CONDITIONS, YOUR SOLE
+                            AND
+                            EXCLUSIVE
+                            REMEDY IS TO DISCONTINUE USING THE SERVICES AND SOFTWARE. INDEMNITY YOU understand that your use of
+                            PSDC
+                            SOFTWARE is at your own risk. YOU agree to hold PSDC, its affiliates, resellers, partners,
+                            officers,
+                            agents,
+                            and employees blameless for any set-back, damage, inconvenience, or other difficulty, financial or
+                            otherwise,
+                            that may arise from the use of its SOFTWARE. TRADEMARKS The following trademarks are owned by PSDC:
+                            "ProMiles"
+                            - is a registered trademark of ProMiles Software Development Corporation. "TruckMiles" - is a
+                            registered
+                            trademark of ProMiles Software Development Corporation. This Agreement does not provide any license
+                            or
+                            rights
+                            to YOU to use such trademarks. THIRD PARTY RIGHTS AND TRADEMARKS The SOFTWARE may include a
+                            portion,
+                            subset
+                            or derivative compilations from third parties. By using the SERVICES and SOFTWARE, YOU agree to the
+                            Terms
+                            and Conditions of these providers in their entirety. Third parties retain the right to modify their
+                            Terms
+                            and Conditions independently of PSDC. Copyright &copy; 1994 - 2019 ProMiles Software Development
+                            Corporation.
+                            Any rights not expressly granted herein are reserved. TruckMiles &trade; inquiries should be
+                            directed
+                            to
+                            info@truckmiles.com, or sales@truckmiles.com as appropriate.
+
+                        </p>
+                        <a href="#" data-rel="back" data-role="button" class="ui-btn ui-icon-back ui-btn-icon-notext ui-btn-icon-center">
+                            back </a>
+
+
+                    </div>
+            </div>
+            <footer data-role="footer" class="footer" data-theme="c">
+             
+                <div id="spinner" class="spinner-border spinner-border-sm" role="status">
+                        <span class="sr-only">Loading...</span>
+                </div>
+                <div >
+                        <span id="tMiles"></span>
+                </div>
+
+
+                <a href="#mypanel" data-rel="panel" data-role="button" data-transition="slideup" data-inline="true"
+                data-position-to="window">New Trip</a>
+
+                <a id="tMiless" href="#mypanel2" data-rel="panel" data-role="button" data-transition="slideup" data-inline="true"
+                data-position-to="window">Trip Details</a>
+                
+                <a href="#wrapper" data-rel="popup" data-role="button" data-transition="slideup" data-inline="true"
+                data-position-to="window">Fuel Prices</a>
+                <a href="#disclaimer" data-rel="popup" data-role="button" data-transition="slideup" data-inline="true"
+                data-position-to="window">Terms</a>
+
+                <a href="https://promiles.wufoo.com/forms/z1ubbwil0fqxawi/" target="_blank" data-rel="popup" data-role="button" data-transition="slideup" data-inline="true"
+                data-position-to="window">Feedback</a>
+                 <div class="pos-f-t"> Trip Tools
+                    <div class="collapse" id="navbarToggleExternalContent">
+                    <div class="bg-dark p-4">
+                        <button id="setMapToOrg"> <a class="text-my-own-color" href="#">Trip Start</a></button>
+                        <button id="setMapToDest"> <a class="text-my-own-color" href="#">Destination</a></button>
+                        <button id="frameTrip"> <a class="text-my-own-color" href="#">Frame Trip</a></button>
+                    </div>
+                </div>
+                <nav class="navbar navbar-dark bg-dark" >
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="float: none; text-align: center;"></span>
+                    </button>
+                </nav>
+            </div>
+                
+           
+                <h5> &copy; ProMiles Software Development Corporation</h5>
+            
+            </footer>
+        </div>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="js/date.js"></script>
+        <script src="js/main.js"></script>
+        <script src="./js/map.js"></script>
+        <script src="js/panel_slide.js"></script>
+        <script src="./js/fuelprice.js"></script>
+       
+
+        <!-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="./js/autocomplete.js"></script>
+        
+        <script src="https://prime.promiles.com/WebAPI/Scripts/PRIME/PRIMEWebAPI.ashx?apikey=Nm1FY1FtQ2ZMeWoySU5oeElyMnY2Zz090">
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0TSo9wlHN_Psu3chFZVYoSQS5rvz9Pog&callback=initMap">
+        </script>
+        <script src="js/addtohomescreen.js"></script>
+        <script>
+        addToHomescreen();
+        </script>
+        <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSyTnZYY7BFNiPES3bpzGIQFCmco3H61g&callback=initMap">
+        </script> -->
+
+    </body>
+
+</html>

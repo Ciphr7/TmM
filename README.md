@@ -1,2 +1,2 @@
-# TmM
-HTML, CSS, JS project
+# tmapp
+TruckMiles App in JQuery, JQueryMobile
