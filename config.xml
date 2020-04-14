@@ -26,7 +26,7 @@
       Gil Garcia
   </author>
 <preference name="phonegap-version" value="cli-9.0.0" />
-<preference name='pgb-builder-version' value='2' />
+<preference name='pgb-builder-version' value='1' />
 
 <!-- <plugin name="cordova-plugin-geolocation" and stuff spec="4.0.1" /> -->
 <plugin name="cordova-plugin-geolocation" version="2.1.0" />
