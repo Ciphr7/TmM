@@ -2,7 +2,7 @@
 
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "	G9ARUSMW33.com.truckmiles.app"
+    id          = "G9ARUSMW33.com.truckmiles.app"
     versionCode = "10.1"
     version     = "2.0.3" >
 
@@ -27,7 +27,8 @@
   </author>
 <preference name="phonegap-version" value="cli-9.0.0" />
 <preference name='pgb-builder-version' value='1' />
-
+ <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="(AIzaSyDZQ8u1LG80wz_cXkCXS-r0x1ojw9XHd0A)" />
+  <preference name="GOOGLE_MAPS_IOS_API_KEY" value="(AIzaSyDZQ8u1LG80wz_cXkCXS-r0x1ojw9XHd0A)" />
 <!-- <plugin name="cordova-plugin-geolocation" and stuff spec="4.0.1" /> -->
 <plugin name="cordova-plugin-geolocation" version="2.1.0" />
 
@@ -41,9 +42,4 @@
 <icon src="res/icon/ios/icon-76.png" platform="ios" width="76" height="76" />
 <icon src="res/icon/ios/icon-60@2x.png" platform="ios" width="120" height="120" />
 <icon src="res/icon/ios/icon-76@2x.png" platform="ios" width="152" height="152" />
-
-
-
-
-
 </widget>
