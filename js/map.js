@@ -6,6 +6,7 @@
       // locate you.
       var polyline;
       var map, infoWindow;
+      var map = plugin.google.maps.Map.getMap('main');
       var bounds;
       var points;
       var markerOrg;

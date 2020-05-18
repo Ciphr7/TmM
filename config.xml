@@ -4,7 +4,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "G9ARUSMW33.com.truckmiles.app"
     versionCode = "10.1"
-    version     = "2.0.3" >
+    version     = "2.0.4" >
 
   <access origin="https://*.typicode.com" />
   <access origin="http://*.truckmiles.com" />
