@@ -354,6 +354,7 @@ function getTimeString(n, isSeconds) {
             });
             map.fitBounds(bounds);
             
+            
                 
    //DRIVING DIRECTIONS
    html.push("<br/><br/><h2>Driving Directions</h2>");
