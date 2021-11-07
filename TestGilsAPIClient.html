@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function testGilsAPIClient() {
+            var b = 'grant_type=password&username=truckmiles&password=#Qp7D4jqCAW2Um2t';		
+			
+            $.ajax({
+                method: "POST",
+                url: 'https://locationdata.promiles.com/AXISv1/AXIS/Token/',
+                data: JSON.stringify(b),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            }).done(function (res) {
+                console.log(JSON.stringify(res));
+            });
+        }
+		
+	$(document).ready(function (){
+			testGilsAPIClient();
+		});	
+</script>
+</head>
+<body>
+
+<h1>testGilsAPIClient()</h1>
+
+<p></p>
+
+</body>
+</html>
