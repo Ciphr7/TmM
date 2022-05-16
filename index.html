@@ -37,7 +37,10 @@
                         
                         <label for="SetToCurrentLocation">Set Origin to my GPS location</label>
                         <input type="checkbox" name="checkbox-0" id="SetToCurrentLocation" onclick="setOriginToCurrentLocation()">
-        
+                        <!-- <h1>testGilsAPIClient</h1>
+                        <B>Body:<p id='data'></p>
+                        
+                        <B>Errors:</B><p id='errors'></p> -->
                         <form>
                             <!-- Origin Lat: <input type="text" id="OLat" value="35.400478" style="width:100px"/> Origin Lon:<input type="text" id="OLon" value="-97.282707"
                                 style="width:100px"/> -->
@@ -98,7 +101,7 @@
                 </div> -->
             </div><!-- /panel -->
             
-            <header class="header">TruckMiles.com</header>
+            <header class="header">TruckMiles <span class="regT">&reg;</span></header>
 
             <div id="main"> 
                 <img src="./css/images/ajax-loader.gif" alt="map did not load, please refresh browser" id="loaderimage" class="center" >  
@@ -112,18 +115,18 @@
 
                 <table class="fixed_header" >
                     
-                    <tbody  id="result-target">
+                    <tbody  id="results">
                         <thead>
                                 
-                                <h3 id="today">       
+                                <h3 id="current-day">       
                                 </h3>
                                             
                             <tr>
                                 <th>State</th>
-                                    <th>Today</th>
-                                    <th>Today Ex-Tax</th>
-                                <th >Yesterdays Price</th>                              
-                                <th>Refundable IFTA</th>
+                                    <th id="current-day">Today</th>
+                                    
+                                <th id="previous-day" >Yesterdays Price</th>                              
+                               
                                 <th>Difference</th>
                             </tr>
                         </thead>
@@ -293,6 +296,8 @@
             
             </footer>
         </div>
+        
+        
         <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -301,9 +306,10 @@
         <script src="js/main.js"></script>
         <script src="./js/map.js"></script>
         <script src="js/panel_slide.js"></script>
-        <script src="./js/fuelprice.js"></script>
-
         <script src="./js/statefuel.js"></script> 
+        <script type="text/javascript" src="js/FuelAverages.js"></script>
+        <!-- <script src="./js/fuelprice.js"></script> -->
+
 
         <!-- <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js" type="text/javascript"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
