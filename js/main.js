@@ -47,9 +47,11 @@ function error(err) {
    console.warn(`ERROR(${err.code}): ${err.message}`);
 }
  function success(position) {
+     seemyLoading()
    var lat = position.coords.latitude;
    var lon = position.coords.longitude;
    $("#origin").val(lat + ':' + lon);
+   hideLoading()
 
 }
 /* When document is loaded fully...
